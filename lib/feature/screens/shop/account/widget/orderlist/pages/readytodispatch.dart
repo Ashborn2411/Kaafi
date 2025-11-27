@@ -1,0 +1,27 @@
+import 'package:firstapp/feature/screens/shop/account/widget/orderlist/widgets/ordercard.dart';
+import 'package:flutter/material.dart';
+
+import '../widgets/noroder.dart';
+
+class Readytodispatch extends StatelessWidget {
+  const Readytodispatch({super.key, this.noitem = true});
+  final bool noitem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5), // Vx.gray100 replacement
+      body: (noitem)
+          ? SingleChildScrollView(
+              child: ListView.builder(
+                itemCount: 1,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return const OrderCard();
+                },
+              ),
+            )
+          : const NoOrder(),
+    );
+  }
+}
