@@ -11,6 +11,7 @@ import '../../../../common/card/shopinfoandbuttoncard.dart'
     show ShopNameAddressPriceButtons;
 import '../../../../constant/imageconstant.dart';
 import '../../../../constant/stringconstant.dart';
+import '../../../../database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import '../../../../navigation.dart';
 import '../home/widgets/appbar/widget/searchbar.dart';
 import 'widgets/titleandcollection.dart';
@@ -18,8 +19,8 @@ import 'widgets/variants.dart';
 
 class ProductDetails extends StatelessWidget {
   final String id;
-  const ProductDetails({super.key, required this.id});
-
+  const ProductDetails({super.key, required this.id, required this.list});
+  final List<Course>list;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -149,7 +150,8 @@ class ProductDetails extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          productController.data.status.keys.first,
+                          //productController.data.status.keys.first,
+                          '',
                           style: TextStyle(
                             fontSize: 16,
                             color: const Color(
@@ -160,7 +162,8 @@ class ProductDetails extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          productController.data.status.keys.last,
+                          //productController.data.status.keys.last,'
+                          '',
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ), // .text.size(16).black.make() replacement
                       ),
@@ -195,7 +198,13 @@ class ProductDetails extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return  ProductCardWithTag(id: id,);
+
+                  return  ProductCardWithTag(id: id,
+                    title:list[index].title,
+                    price: list[index].price.toString(),
+                    enrolled: list[index].enrolled.toString(),
+                    rating: list[index].rating,
+                    url: list[index].thumbnail, list: list,);
                 },
               ),
             ), // .box.gray100.make() replacement

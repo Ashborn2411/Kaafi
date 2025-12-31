@@ -6,7 +6,7 @@ class Payment {
   final String status;
   final String method;
 
-  const Payment({
+  Payment({
     required this.paymentId,
     required this.enrollmentId,
     required this.amount,
@@ -15,12 +15,14 @@ class Payment {
     required this.method,
   });
 
-  factory Payment.fromJson(Map<String, dynamic> json) => Payment(
-    paymentId: json['paymentId'] as String,
-    enrollmentId: json['enrollmentId'] as String,
-    amount: (json['amount'] as num).toDouble(),
-    date: DateTime.parse(json['date'] as String),
-    status: json['status'] as String,
-    method: json['method'] as String,
-  );
+  factory Payment.fromJson(Map<String, dynamic> json) {
+    return Payment(
+      paymentId: json['paymentId'],
+      enrollmentId: json['enrollmentId'],
+      amount: json['amount'] is int ? (json['amount'] as int).toDouble() : json['amount'],
+      date: DateTime.parse(json['date']),
+      status: json['status'],
+      method: json['method'],
+    );
+  }
 }

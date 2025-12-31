@@ -1,3 +1,4 @@
+import 'package:firstapp/database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 
@@ -9,8 +10,9 @@ import '../home/widgets/appbar/widget/searchbar.dart';
 import 'widget/customheader1.dart';
 
 class CampaignScreen extends StatelessWidget {
-  const CampaignScreen({super.key, required this.id});
+  const CampaignScreen({super.key, required this.id, required this.list});
   final String id;
+  final List<Course>list;
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
@@ -57,7 +59,12 @@ class CampaignScreen extends StatelessWidget {
                         ),
                     itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
-                      return  ProductCardWithTag(id: id,);
+                      return  ProductCardWithTag(id: id,
+                        title: list[index].title,
+                        price: list[index].price.toString(),
+                        enrolled:list[index].enrolled.toString(),
+                        rating: list[index].rating,
+                        url: list[index].thumbnail, list: list,);
                     },
                   ),
                 ),

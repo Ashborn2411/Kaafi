@@ -115,7 +115,7 @@ class ProductCardList extends StatelessWidget {
           price: list[index].price.toString(),
           imgurl: list[index].thumbnail,
           isnetworkimg: true,
-          id:list[index].courseId,
+          id:list[index].courseId, list: list,
         ),
         separatorBuilder: (_, __) =>
             const SizedBox(width: 10), // 10.widthBox replacement

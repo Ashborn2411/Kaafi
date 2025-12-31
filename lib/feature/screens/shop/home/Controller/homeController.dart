@@ -5,6 +5,7 @@ import '../../../../../database_supabase/DataBase_Data_Class/courses_data_class.
 
 class HomeController extends GetxController{
   DatabaseService db=DatabaseService.instance;
-  late final List<Course>course_list=db.database.value.courses;
+  late final list=db.database.value.courses;
+
 }
 

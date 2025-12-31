@@ -6,7 +6,7 @@ class Lesson {
   final String videoUrl;
   final int duration;
 
-  const Lesson({
+  Lesson({
     required this.lessonId,
     required this.sectionId,
     required this.title,
@@ -15,12 +15,14 @@ class Lesson {
     required this.duration,
   });
 
-  factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-    lessonId: json['lessonId'] as String,
-    sectionId: json['sectionId'] as String,
-    title: json['title'] as String,
-    content: json['content'] as String,
-    videoUrl: json['videoUrl'] as String,
-    duration: json['duration'] as int,
-  );
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+      lessonId: json['lessonId'],
+      sectionId: json['sectionId'],
+      title: json['title'],
+      content: json['content'],
+      videoUrl: json['videoUrl'].trim(),
+      duration: json['duration'],
+    );
+  }
 }

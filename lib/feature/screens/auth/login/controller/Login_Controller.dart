@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firstapp/LocalStorage/smallStorage.dart';
 import 'package:firstapp/feature/screens/shop/home/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class Login_Controller extends GetxController implements Login_abstract,Process_
   final TextEditingController email=TextEditingController();
   final TextEditingController password=TextEditingController();
   final RxBool isobscured=false.obs;
+  SmallStorage sd=SmallStorage();
   static Login_Controller get instance => Get.find();
   @override
   String? processPassword(TextEditingController password) {
@@ -43,14 +45,21 @@ class Login_Controller extends GetxController implements Login_abstract,Process_
   @override
   Future<void> signIn(String email, String password) async{
     // TODO: implement signUp
-    final AuthResponse res = await supabase.auth.signInWithPassword(
-      email: email,
-      password:password,
-    );
-
-    final Session? session = res.session;
-    final User? user = res.user;
-   if(user!=null)Get.to(()=>HomeScreen());
+    try{
+      final AuthResponse res = await supabase.auth.signInWithPassword(
+        email: email,
+        password:password,
+      );
+      final Session? session = res.session;
+      final User? user = res.user;
+      sd.box.writeIfNull("email", user?.email);
+      sd.box.writeIfNull("id",user?.id );
+      sd.box.writeIfNull("login", true);
+      if(user!=null)Get.to(()=>HomeScreen());
+    }
+    catch(e){
+      print(e);
+    }
   }
 
 }

@@ -6,7 +6,7 @@ class AppString {
   static const String user = "user";
   static const String student = "student";
   static const String instructor = "instructors";
-  static const String enrollment = "enrollments";
+  static const String enrollment = "enrollements";
   static const String section = "sections";
   static const String lesson = "lesson";
   static const String quiz = "quizzes";

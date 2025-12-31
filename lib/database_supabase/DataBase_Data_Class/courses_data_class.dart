@@ -1,29 +1,68 @@
-class Course {
-  final String courseId,url, title, description, instructorName,thumbnail;
-  final double price;
-  final Map<String,dynamic> status;
+class CourseStatus {
+  final bool featured;
+  final bool published;
 
-  Course( {
+  CourseStatus({
+    required this.featured,
+    required this.published,
+  });
+
+  factory CourseStatus.fromJson(Map<String, dynamic> json) {
+    return CourseStatus(
+      featured: json['featured'],
+      published: json['published'],
+    );
+  }
+}
+class Course {
+  final String courseId;
+  final String instructorId;
+  final String categoryId;
+  final String title;
+  final String description;
+  final double price;
+  final CourseStatus status;
+  final String url;
+  final String thumbnail;
+  final String instructorName;
+  final int enrolled;
+  final double rating;
+
+  Course({
     required this.courseId,
+    required this.instructorId,
+    required this.categoryId,
     required this.title,
     required this.description,
-    required this.instructorName,
     required this.price,
     required this.status,
     required this.url,
-    required this.thumbnail
+    required this.thumbnail,
+    required this.instructorName,
+    required this.enrolled,
+    required this.rating,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) {
+    // Clean up string fields
+    final cleanedDescription = (json['description'] as String).replaceAll('\n', ' ').trim();
+    final cleanedInstructorName = (json['instructorName'] as String).replaceAll('\n', ' ').trim();
+    final cleanedUrl = (json['url'] as String).trim();
+    final cleanedThumbnail = (json['thumbnail'] as String).trim();
+
     return Course(
       courseId: json['courseId'],
-      thumbnail: json['thumbnail'],
-      url:json['url'],
+      instructorId: json['instructorId'],
+      categoryId: json['categoryId'],
       title: json['title'],
-      description: json['description'],
-      instructorName: json['instructorName'],
-      price: (json['price'] as num).toDouble(),
-      status:json['status'] as Map<String, dynamic>
+      description: cleanedDescription,
+      price: json['price'] is int ? (json['price'] as int).toDouble() : json['price'],
+      status: CourseStatus.fromJson(json['status']),
+      url: cleanedUrl,
+      thumbnail: cleanedThumbnail,
+      instructorName: cleanedInstructorName,
+      enrolled: json['enrolled'],
+      rating: json['rating'] is int ? (json['rating'] as int).toDouble() : json['rating'],
     );
   }
 }

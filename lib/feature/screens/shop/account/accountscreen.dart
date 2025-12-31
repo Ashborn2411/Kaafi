@@ -1,3 +1,4 @@
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:firstapp/feature/screens/shop/account/widget/FourTitleswithIcon.dart';
 import 'package:firstapp/feature/screens/shop/account/widget/FourbuttonRow.dart';
 import 'package:firstapp/feature/screens/shop/account/widget/Profilewitheditbutton.dart';
@@ -12,6 +13,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final AccountController controller =AccountController();
     return Scaffold(
       bottomNavigationBar: const BottomNav(),
       appBar: AppBar(
@@ -33,9 +35,9 @@ class AccountScreen extends StatelessWidget {
             child: Profilewitheditbutton(),
           ), // .centered() replacement
           const SizedBox(height: 20), // 20.heightBox replacement
-          const TitleText(title: "tanjim", size: 20),
+          TitleText(title: controller.user!.name, size: 20),
           Text(
-            "tanjimjoy7@gmail.com",
+            controller.user!.email,
             style: TextStyle(
               color: const Color(0xFF9E9E9E), // gray500 equivalent
             ),
@@ -60,7 +62,6 @@ class AccountScreen extends StatelessWidget {
                   size: 16,
                   color: Colors.amber, // Vx.amber500 replacement
                 ),
-                Text("0 Points", style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
           ),

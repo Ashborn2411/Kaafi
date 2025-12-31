@@ -13,61 +13,19 @@ class Certificate {
     required this.criteria,
   });
 
-  // Factory constructor for creating Certificate from JSON/map
   factory Certificate.fromJson(Map<String, dynamic> json) {
     return Certificate(
-      certId: json['certId'] as String,
-      studentId: json['studentId'] as String,
-      courseId: json['courseId'] as String,
-      issueDate: DateTime.parse(json['issueDate'] as String),
-      criteria: json['criteria'] as String,
+      certId: json['certId'],
+      studentId: json['studentId'],
+      courseId: json['courseId'],
+      issueDate: DateTime.parse(json['issueDate']),
+      criteria: json['criteria'],
     );
-  }
-
-  // Convert Certificate to JSON/map
-  Map<String, dynamic> toJson() {
-    return {
-      'certId': certId,
-      'studentId': studentId,
-      'courseId': courseId,
-      'issueDate': issueDate.toIso8601String(),
-      'criteria': criteria,
-    };
-  }
-
-  // Copy with method for immutability
-  Certificate copyWith({
-    String? certId,
-    String? studentId,
-    String? courseId,
-    DateTime? issueDate,
-    String? criteria,
-  }) {
-    return Certificate(
-      certId: certId ?? this.certId,
-      studentId: studentId ?? this.studentId,
-      courseId: courseId ?? this.courseId,
-      issueDate: issueDate ?? this.issueDate,
-      criteria: criteria ?? this.criteria,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Certificate(certId: $certId, studentId: $studentId, courseId: $courseId, issueDate: $issueDate, criteria: $criteria)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is Certificate && other.certId == certId;
-  }
-
-  @override
-  int get hashCode {
-    return certId.hashCode;
   }
 }
+
+
+
 
 // Helper class for working with lists of certificates
 class CertificateList {
@@ -81,9 +39,6 @@ class CertificateList {
     );
   }
 
-  List<Map<String, dynamic>> toJson() {
-    return certificates.map((cert) => cert.toJson()).toList();
-  }
 
   // Find certificate by ID
   Certificate? findById(String certId) {

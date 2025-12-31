@@ -21,6 +21,7 @@ class GenericFetch<T> extends FetchData {
     }else{
       rxList.value=db.supplyData(tableName.capitalize!) as List<T>;
     }
+
   }
   @override
   Future<List?> fetchData(String tableName) {

@@ -27,7 +27,7 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => const ShopDetails(id: '',)),
+      onTap: () => Get.to(() => const ShopDetails(id: '', list: [],)),
       child: Container(
         width: 160,
         decoration: BoxDecoration(

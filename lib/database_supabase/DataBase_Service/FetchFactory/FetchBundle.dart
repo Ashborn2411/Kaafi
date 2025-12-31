@@ -94,7 +94,7 @@ class Fetch_Notifications extends GenericFetch<Notification> {
   );
 }
 
-class Fetch_Categories extends GenericFetch<CategoryDataClass> {
+class Fetch_Categories extends GenericFetch<Category> {
   Fetch_Categories() : super(
     tableName: 'Categories',
   );

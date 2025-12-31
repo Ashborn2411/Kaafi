@@ -59,9 +59,10 @@ class RegisterView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       // Auth_text_field(
-                      //   hinttext: "Enter your city name",
-                      //   labeltext: "City",
-                      //   icondata: Icons.apartment,
+                      //   hinttext: "What describe you?",
+                      //   labeltext: 'Choose Role ',
+                      //   icondata: Icons.person,
+                      //   controller: controller.,
                       // ),
                       Auth_text_field(
                         obscure: false,
@@ -92,7 +93,10 @@ class RegisterView extends StatelessWidget {
                       Custom_Auth_Button(title: "Register",
                           function:(){
                         if(controller.passwordController.text.trim()==controller.confirmPassWord.text.trim()){
-                          controller.signUp(controller.emailController.text.trim(),controller.confirmPassWord.text.trim();
+                          controller.signUp(
+                              controller.emailController.text.trim(),
+                              controller.confirmPassWord.text.trim(),
+                              controller.nameController.text.trim());
                         }else{
                           GetSnackBar();
                           }

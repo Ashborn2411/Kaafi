@@ -6,7 +6,7 @@ class Enrollment {
   final double progress;
   final String status;
 
-  const Enrollment({
+  Enrollment({
     required this.enrollmentId,
     required this.studentId,
     required this.courseId,
@@ -15,12 +15,14 @@ class Enrollment {
     required this.status,
   });
 
-  factory Enrollment.fromJson(Map<String, dynamic> json) => Enrollment(
-    enrollmentId: json['enrollmentId'] as String,
-    studentId: json['studentId'] as String,
-    courseId: json['courseId'] as String,
-    enrollmentDate: DateTime.parse(json['enrollmentDate'] as String),
-    progress: (json['progress'] as num).toDouble(),
-    status: json['status'] as String,
-  );
+  factory Enrollment.fromJson(Map<String, dynamic> json) {
+    return Enrollment(
+      enrollmentId: json['enrollmentId'],
+      studentId: json['studentId'],
+      courseId: json['courseId'],
+      enrollmentDate: DateTime.parse(json['enrollmentDate']),
+      progress: json['progress'] is int ? (json['progress'] as int).toDouble() : json['progress'],
+      status: json['status'],
+    );
+  }
 }

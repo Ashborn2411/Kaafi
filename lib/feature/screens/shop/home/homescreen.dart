@@ -48,12 +48,12 @@ class HomeScreen extends StatelessWidget {
                 case 1:
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Part1(list: controller.course_list,),
+                    child: Part1(list: controller.list,),
                   ); // .paddingSymmetric() replacement
                 case 2:
                   return const SizedBox(height: 10); // 10.heightBox replacement
                 case 3:
-                  return  Part2(list:controller.course_list,);
+                  return  Part2(list:controller.list,);
                 default:
                   return Container();
               }
