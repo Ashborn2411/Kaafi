@@ -34,19 +34,13 @@ class ProductDetails extends StatelessWidget {
         title: const RoundedSearchBar(title: "Search Products"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: ()=>productController.like(),
             icon: const Icon(
               Icons.favorite_border_outlined,
               color: Color.fromARGB(255, 158, 4, 4), // Vx.black replacement
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.share,
-              color: Colors.black, // Vx.black replacement
-            ),
-          ),
+
         ],
       ),
       body: SingleChildScrollView(
@@ -109,7 +103,9 @@ class ProductDetails extends StatelessWidget {
             const SizedBox(height: 8), // 8.heightBox replacement
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: ShopNameAddressPriceButtons( instructorName:productController.data.instructorName,),
+              child: ShopNameAddressPriceButtons(
+                instructorName:productController.data.instructorName,
+                onPressed:()=>productController.addtoCart(),),
             ), // .paddingSymmetric() replacement
             const SizedBox(height: 16), // 16.heightBox replacement
             Padding(

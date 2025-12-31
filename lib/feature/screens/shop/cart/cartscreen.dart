@@ -1,7 +1,11 @@
+import 'package:firstapp/feature/screens/shop/account/widget/wishlist.dart';
+import 'package:firstapp/feature/screens/shop/cart/cartController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/text/titletext.dart';
 import '../../../../constant/imageconstant.dart';
+import '../../../../database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import '../../../../navigation.dart';
 import 'widget/bottomtitle.dart';
 
@@ -10,7 +14,7 @@ class CartSrceen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int items = 0;
+    final controller=Get.put(CartController());
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomNavigationBar: const BottomNav(),
@@ -30,21 +34,20 @@ class CartSrceen extends StatelessWidget {
         width: w,
         child: Stack(
           children: [
-            (items != 0)
+            (controller.cartlist.isNotEmpty)
                 ? Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: ListView.separated(
-                      itemCount: 1,
+                      itemCount: controller.cartlist.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return const SizedBox(
                           height: 10,
                         ); // 10.heightBox replacement
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          color: const Color(0xFFFFCDD2), // red100 equivalent
-                          child: Text("hello"),
-                        ); // .text.make().box.red100.make() replacement
+                        Course c=controller.getCartCourses(controller.cartlist[index]);
+                        return WishListComponent(title:c.title
+                            ,price:c.price.toString(), url:c.thumbnail,);// .text.make().box.red100.make() replacement
                       },
                     ),
                   ) // .box.padding().make() replacement

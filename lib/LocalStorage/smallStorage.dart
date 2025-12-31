@@ -7,7 +7,6 @@ class SmallStorage extends GetxController {
   final GetStorage box = GetStorage();
 
   Future<void> initialize() async {
-    // Already initialized in main, but safe to call
     await GetStorage.init();
   }
 
