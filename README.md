@@ -301,31 +301,9 @@ sql
 
 
 ## 📈 Entity Relationship Diagram
+<img width="5482" height="2772" alt="deepseek_mermaid_20260101_d98114" src="https://github.com/user-attachments/assets/1a58cf04-51c9-41e4-8fdb-12b9b77c2935" />
 
-mermaid
-erDiagram
-    User ||--o{ Student : "becomes"
-    User ||--o{ Instructors : "becomes"
-    User ||--o{ Notifications : receives
-    User ||--o{ Posts : creates
-    User ||--o{ Forum : moderates
-    
-    Student ||--o{ Enrollements : has
-    Student ||--o{ Review : writes
-    Student ||--o{ Certificates : earns
-    
-    Instructors ||--o{ Courses : creates
-    Courses ||--o{ Category : belongs_to
-    Courses ||--o{ Sections : contains
-    Courses ||--o{ Review : receives
-    Courses ||--o{ Forum : has
-    Courses ||--o{ Quizzes : contains
-    Courses ||--o{ Enrollements : has
-    
-    Sections ||--o{ Lesson : contains
-    Quizzes ||--o{ Questions : has
-    Enrollements ||--o{ Payments : has
-    Forum ||--o{ Posts : contains
+
 
 
 ## 🏗️ Table Structures
