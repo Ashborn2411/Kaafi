@@ -19,17 +19,21 @@ class CustomListTitle extends StatelessWidget {
       onTap: ontap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        child: Row(
-          children: [
-            Icon(icon, size: 20),
-            const SizedBox(width: 16), // 16.widthBox replacement
-            Text(
-              title,
-              style: TextStyle(fontSize: 16),
-            ), // .text.size(16).make() replacement
-          ],
-        ),
+        child: Container(padding: EdgeInsets.all(12),decoration: BoxDecoration(color: Colors.purpleAccent,borderRadius:BorderRadius.circular(12)),child: buildRow(),),
       ), // .paddingSymmetric() replacement
     );
+  }
+
+  Row buildRow() {
+    return Row(
+        children: [
+          Icon(icon, size: 20,color: Colors.white,),
+          const SizedBox(width: 16), // 16.widthBox replacement
+          Text(
+            title,
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),
+          ), // .text.size(16).make() replacement
+        ],
+      );
   }
 }

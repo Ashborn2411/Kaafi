@@ -8,4 +8,9 @@ class AccountController extends GetxController{
  DatabaseService db=DatabaseService.instance;
  SmallStorage sd=SmallStorage();
  late User? user=db.database.value.getUserById(sd.box.read("id"));
+ late List<String>wishlist=db.database.value.users.firstWhere((v)=>v.userId==sd.box.read("id")).wishlist;
+ late List<String>enrolledlist=db.database.value.users.firstWhere((v)=>v.userId==sd.box.read("id")).enrolledlist;
+
+ getCartCourses(String value)=>db.database.value.courses.firstWhere((v)=>v.courseId==value);
+
 }

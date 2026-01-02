@@ -1,22 +1,30 @@
+import 'package:firstapp/database_supabase/DataBase_Data_Class/courses_data_class.dart';
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constant/imageconstant.dart';
 
 class Wishlist extends StatelessWidget {
-  const Wishlist({super.key});
+  const Wishlist({super.key, required this.controller, required this.list});
+  final AccountController controller;
+  final List list;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: Text("Wishlist")),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: list.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return WishListComponent(title: '', price: '', url: '',);
+              Course course=controller.getCartCourses(list[index]);
+              return WishListComponent(title: course.title,
+                price:course.price.toString(),
+                url: course.thumbnail,);
             },
           ),
         ),

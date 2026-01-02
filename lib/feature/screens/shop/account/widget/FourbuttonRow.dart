@@ -1,3 +1,4 @@
+import 'package:firstapp/ai_integrate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../auth/profileinfo/profileinfo.dart';
@@ -12,21 +13,6 @@ class FourButtonRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ButtonwithTitle(
-          title: "Orders",
-          color: const Color(0xFF4CAF50),
-          onpressd: () => Get.to(() => const Orderlist()),
-          icon: Icons.assignment,
-        ),
-        const SizedBox(width: 50), // 50.widthBox replacement
-        ButtonwithTitle(
-          title: "Profile",
-          color: const Color(0xFF2196F3), // Vx.blue500 replacement
-          onpressd: () =>
-              Get.to(() => const CompleteProfileScreen(isUpdate: true)),
-          icon: Icons.person,
-        ),
-        const SizedBox(width: 50), // 50.widthBox replacement
-        ButtonwithTitle(
           title: "Address",
           color: const Color(0xFFFB8C00), // Vx.orange600 replacement
           onpressd: () {},
@@ -36,7 +22,7 @@ class FourButtonRow extends StatelessWidget {
         ButtonwithTitle(
           title: "Message",
           color: const Color(0xFFFFEB3B), // Vx.yellow500 replacement
-          onpressd: () {},
+          onpressd: () =>Get.to(()=>Ai_Chat()),
           icon: Icons.message,
         ),
       ],

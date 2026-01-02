@@ -1,10 +1,13 @@
 import 'package:firstapp/Utils/video_module/video_module.dart';
+import 'package:firstapp/ai_integrate.dart';
 import 'package:firstapp/feature/screens/shop/productdetail/ShopController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../Utils/video_module/video_widget.dart';
 import '../../../../common/card/banner/bannercarousel.dart';
 import '../../../../common/card/productcardwithtag.dart';
 import '../../../../common/card/shopinfoandbuttoncard.dart'
@@ -26,9 +29,10 @@ class ProductDetails extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final ProductController productController=ProductController(id: id);
     final controller=Get.put(VideoController(url: productController.data.url));
-    print(productController.data.instructorName);
+
     return Scaffold(
       bottomNavigationBar: const BottomNav(),
+      floatingActionButton: FloatingActionButton(child: Icon(Iconsax.message),onPressed: ()=>Get.to(()=>Ai_Chat())),
       appBar: AppBar(
         surfaceTintColor: Colors.white, // Vx.white replacement
         title: const RoundedSearchBar(title: "Search Products"),
@@ -51,11 +55,9 @@ class ProductDetails extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child:AspectRatio(
-                aspectRatio: controller.videoPlayerController.value.aspectRatio,
-                child: VideoPlayer(controller.videoPlayerController),
-              ),
+              child:VideoModule(controller: controller),
             ), // .paddingSymmetric() replacement
+
             const SizedBox(height: 10), // 10.heightBox replacement
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -105,7 +107,7 @@ class ProductDetails extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: ShopNameAddressPriceButtons(
                 instructorName:productController.data.instructorName,
-                onPressed:()=>productController.addtoCart(),),
+                onPressed:()=>productController.addToCart(),),
             ), // .paddingSymmetric() replacement
             const SizedBox(height: 16), // 16.heightBox replacement
             Padding(
@@ -210,3 +212,5 @@ class ProductDetails extends StatelessWidget {
     );
   }
 }
+
+

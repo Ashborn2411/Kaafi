@@ -1,6 +1,7 @@
 import 'package:firstapp/Utils/AppString.dart';
 import 'package:firstapp/database_supabase/DataBase_Service/CenterDataBase/MainData_Class.dart';
 import 'package:firstapp/database_supabase/dataFetch_abstraction.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -21,14 +22,16 @@ class DatabaseService implements MainDatabase{
   Rx<CompleteDatabase> database=CompleteDatabase.emptydata.obs;
   bool _isinit=false;
   DatabaseService._internal();
-
+  CompleteDatabase parseCompleteDatabase(dynamic json) {
+    return CompleteDatabase.fromJson(json);
+  }
   @override
   Future<CompleteDatabase> fetchData() async {
     final supabase = Supabase.instance.client;
     try {
       final response = await supabase.rpc('get_all_data');
-      print(response);
-      database.value=CompleteDatabase.fromJson(response);
+      final value=compute(parseCompleteDatabase,response);
+      database.value=await value;
 
       return database.value;
     } catch (e) {

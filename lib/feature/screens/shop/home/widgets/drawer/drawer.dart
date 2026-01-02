@@ -1,3 +1,5 @@
+import 'package:firstapp/ai_integrate.dart';
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,13 +16,15 @@ class MyDrawer extends StatelessWidget {
   final String userName;
   final String userEmail;
   final GlobalKey<ScaffoldState> scaffoldKey;
-
+  final AccountController controller;
   const MyDrawer({
     super.key,
     required this.userName,
     required this.userEmail,
     required this.scaffoldKey,
+    required this.controller,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,22 +93,14 @@ class MyDrawer extends StatelessWidget {
             CustomListTitle(
               title: 'Wishlist',
               icon: Icons.favorite_border_outlined,
-              ontap: () => Get.to(() => const Wishlist()),
+              ontap: () => Get.to(() =>Wishlist(controller: controller,list: controller.wishlist,)),
             ),
+
+
             CustomListTitle(
-              title: 'My eStore',
-              icon: Icons.store,
-              ontap: () {},
-            ),
-            CustomListTitle(
-              title: 'Contact Us',
-              icon: Icons.phone_outlined,
-              ontap: () {},
-            ),
-            CustomListTitle(
-              title: 'Terms & Conditons',
-              icon: Icons.copy,
-              ontap: () {},
+              title: 'Chat with KAFFI Bot',
+              icon: Icons.chat,
+              ontap: () =>Get.to(()=>Ai_Chat()),
             ),
           ],
         ),

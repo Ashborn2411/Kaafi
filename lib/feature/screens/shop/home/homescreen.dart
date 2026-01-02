@@ -1,4 +1,5 @@
 import 'package:firstapp/LocalStorage/smallStorage.dart';
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:firstapp/feature/screens/shop/home/Controller/homeController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _homeScaffoldKey = GlobalKey<ScaffoldState>();
     final controller=Get.put(HomeController());
+    final AccountController accountController=AccountController();
     SmallStorage smallStorage=SmallStorage.instance;
 
     return Scaffold(
@@ -28,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         userName:controller.name.value,
         userEmail:controller.email.value,
 
-        scaffoldKey:_homeScaffoldKey,
+        scaffoldKey:_homeScaffoldKey, controller: accountController,
       ),
       body: CustomScrollView(
         clipBehavior: Clip.antiAliasWithSaveLayer,

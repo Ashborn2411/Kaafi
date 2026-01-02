@@ -1,3 +1,4 @@
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:firstapp/feature/screens/shop/account/widget/orderlist/orderlist.dart';
 import 'package:firstapp/feature/screens/shop/home/categories/categories.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import '../../account/widget/ButtonwithTitle.dart';
 import '../../account/widget/wishlist.dart';
 
 class HomeFiveButton extends StatelessWidget {
-  const HomeFiveButton({super.key});
-
+  const HomeFiveButton({super.key, required this.controller});
+  final AccountController controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +27,7 @@ class HomeFiveButton extends StatelessWidget {
           ButtonwithTitle(
             title: 'Wish List',
             color: const Color(0xFFE53935), // Vx.red600 replacement
-            onpressd: () => Get.to(() => const Wishlist()),
+            onpressd: () => Get.to(() => Wishlist(controller: controller, list: controller.wishlist,)),
             icon: Icons.favorite_border_rounded,
           ),
           /*ButtonwithTitle(
