@@ -8,9 +8,10 @@ import 'widget/ratingwithtotalrated.dart';
 import 'widget/shopinfo.dart';
 
 class ShopNameAddressPriceButtons extends StatelessWidget {
-  const ShopNameAddressPriceButtons({super.key, required this.instructorName, required this.onPressed});
-  final VoidCallback onPressed;
+  const ShopNameAddressPriceButtons({super.key, required this.instructorName, required this.onPressed, required this.enroll, required this.rate});
+  final VoidCallback onPressed,enroll;
   final String instructorName;
+  final double rate;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +48,11 @@ class ShopNameAddressPriceButtons extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const CODIcon(title: 'verified', colors: Colors.blueAccent,),
-                      const RatingwithTotalrates(rate: 4, totalrated: "200"),
+                       RatingwithTotalrates(rate: rate, totalrated: "200"),
 
                     ],
                   ),
-                SizedBox(width: w*.20,),
+                SizedBox(width: w*.15,),
                   const ProducPriceHorizontl(price: '200', reduced: false),
                 ],),
 
@@ -68,7 +69,7 @@ class ShopNameAddressPriceButtons extends StatelessWidget {
                   child: SizedBox(
                     height: 40,
                     child: CustomElevatedButton(
-                      title: "Add to Cart",
+                      title: "Add to WishList",
                       textcolor: Colors.black, // Vx.black replacement
                       onPressed: onPressed,
                       backgroundColor: const Color(
@@ -82,8 +83,9 @@ class ShopNameAddressPriceButtons extends StatelessWidget {
                   child: SizedBox(
                     height: 40,
                     child: CustomElevatedButton(
-                      title: "Buy Now",
-                      onPressed: () {},
+                      backgroundColor: Colors.purple,
+                      title: "Enroll",
+                      onPressed: ()=>enroll,
                     ),
                   ),
                 ),

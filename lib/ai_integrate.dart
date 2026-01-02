@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 
 
 class Ai_Chat extends StatelessWidget {
-  const Ai_Chat({super.key});
+  const Ai_Chat({super.key,});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class Ai_Chat extends StatelessWidget {
 
       ),
       body: Chat(
+
         currentUserId: 'user1',
         resolveUser: (UserID id) async {
           return User(
@@ -31,11 +34,12 @@ class Ai_Chat extends StatelessWidget {
         },
         chatController: controller.chatController,
         onMessageSend: (text) async {
+
           final userMessage = TextMessage(
             id: '${Random().nextInt(1000) + 1}',
             authorId: 'user1',
             createdAt: DateTime.now().toUtc(),
-            text: text,
+            text:text,
           );
           controller.chatController.insertMessage(userMessage);
 

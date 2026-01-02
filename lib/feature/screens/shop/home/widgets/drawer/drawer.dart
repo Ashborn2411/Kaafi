@@ -61,33 +61,14 @@ class MyDrawer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20), // 20.heightBox replacement
-            CustomListTitle(
-              title: 'Home',
-              icon: Icons.home_outlined,
-              ontap: () {
 
-              },
-            ),
-            CustomListTitle(
-              title: 'Account',
-              icon: Icons.person_outline,
-              ontap: () {
 
-              },
-            ),
             CustomListTitle(
-              title: 'Orders',
+              title: 'Enrolled',
               icon: Icons.request_page_outlined,
               ontap: () {
-                Get.to(() => const Orderlist());
+                Get.to(() => Wishlist(controller: controller, list: controller.enrolledlist));
                 scaffoldKey.currentState?.closeDrawer();
-              },
-            ),
-            CustomListTitle(
-              title: 'Cart',
-              icon: Icons.shopping_cart_outlined,
-              ontap: () {
-
               },
             ),
             CustomListTitle(
@@ -95,7 +76,6 @@ class MyDrawer extends StatelessWidget {
               icon: Icons.favorite_border_outlined,
               ontap: () => Get.to(() =>Wishlist(controller: controller,list: controller.wishlist,)),
             ),
-
 
             CustomListTitle(
               title: 'Chat with KAFFI Bot',

@@ -7,13 +7,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../../../Utils/video_module/video_widget.dart';
-import '../../../../common/card/banner/bannercarousel.dart';
 import '../../../../common/card/productcardwithtag.dart';
 import '../../../../common/card/shopinfoandbuttoncard.dart'
     show ShopNameAddressPriceButtons;
-import '../../../../constant/imageconstant.dart';
-import '../../../../constant/stringconstant.dart';
 import '../../../../database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import '../../../../navigation.dart';
 import '../home/widgets/appbar/widget/searchbar.dart';
@@ -32,7 +28,8 @@ class ProductDetails extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: const BottomNav(),
-      floatingActionButton: FloatingActionButton(child: Icon(Iconsax.message),onPressed: ()=>Get.to(()=>Ai_Chat())),
+      floatingActionButton: FloatingActionButton(child: Icon(Iconsax.message),
+          onPressed: ()=>Get.to(()=>Ai_Chat())),
       appBar: AppBar(
         surfaceTintColor: Colors.white, // Vx.white replacement
         title: const RoundedSearchBar(title: "Search Products"),
@@ -55,7 +52,27 @@ class ProductDetails extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child:VideoModule(controller: controller),
+              child:Stack(
+              alignment: Alignment.center,
+              children: [
+                AspectRatio(
+                  aspectRatio: controller
+                      .videoPlayerController.value.aspectRatio,
+                  child: VideoPlayer(controller.videoPlayerController),
+                ),                Obx(() => controller.isLoading.value
+                    ? Center(child:CircularProgressIndicator())
+                    : Center(child:IconButton(
+                  onPressed: () => controller.playPause(),
+                  icon: Icon(
+                    controller.isPlaying.value
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    size: 50,
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                )),
+                ),
+              ],),
             ), // .paddingSymmetric() replacement
 
             const SizedBox(height: 10), // 10.heightBox replacement
@@ -107,7 +124,8 @@ class ProductDetails extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: ShopNameAddressPriceButtons(
                 instructorName:productController.data.instructorName,
-                onPressed:()=>productController.addToCart(),),
+                onPressed:()=>productController.addToCart(),
+                enroll: ()=>productController.enroll(), rate: productController.data.rating,),
             ), // .paddingSymmetric() replacement
             const SizedBox(height: 16), // 16.heightBox replacement
             Padding(
@@ -124,57 +142,49 @@ class ProductDetails extends StatelessWidget {
                 productController.data.description,
               ), // .text.make().paddingSymmetric() replacement
             ),
-            const SizedBox(height: 20), // 20.heightBox replacement
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                "Specification",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ), // .text.bold.size(18).make().paddingSymmetric() replacement
-            ),
-            const SizedBox(height: 10), // 10.heightBox replacement
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 6,
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 10); // 10.heightBox replacement
-                },
-                itemBuilder: (BuildContext context, int index) {
-
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          //productController.data.status.keys.first,
-                          '',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: const Color(
-                              0xFF616161,
-                            ), // gray700 equivalent
-                          ),
-                        ), // .text.size(16).gray700.make() replacement
-                      ),
-                      Expanded(
-                        child: Text(
-                          //productController.data.status.keys.last,'
-                          '',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                        ), // .text.size(16).black.make() replacement
-                      ),
-                    ],
-                  );
-                },
-              ), // .paddingSymmetric() replacement
-            ),
+            //
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: ListView.separated(
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     shrinkWrap: true,
+            //     itemCount: 6,
+            //     separatorBuilder: (BuildContext context, int index) {
+            //       return const SizedBox(height: 10); // 10.heightBox replacement
+            //     },
+            //     itemBuilder: (BuildContext context, int index) {
+            //
+            //       return Row(
+            //         children: [
+            //           Expanded(
+            //             child: Text(
+            //               //productController.data.status.keys.first,
+            //               '',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 color: const Color(
+            //                   0xFF616161,
+            //                 ), // gray700 equivalent
+            //               ),
+            //             ), // .text.size(16).gray700.make() replacement
+            //           ),
+            //           Expanded(
+            //             child: Text(
+            //               //productController.data.status.keys.last,'
+            //               '',
+            //               style: TextStyle(fontSize: 16, color: Colors.black),
+            //             ), // .text.size(16).black.make() replacement
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   ), // .paddingSymmetric() replacement
+            // ),
             const SizedBox(height: 16), // 16.heightBox replacement
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                "Related Products",
+                "Related Courses",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ), // .text.bold.size(16).make().paddingSymmetric() replacement
             ),
@@ -212,5 +222,3 @@ class ProductDetails extends StatelessWidget {
     );
   }
 }
-
-

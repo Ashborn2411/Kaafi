@@ -26,7 +26,7 @@ class ProductCardWithTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() =>  ProductDetails(id: id, list: list,)),
+      onTap: ()=> Get.to( ProductDetails(id: id, list: list,)),
       child: Container(
         width: 220.0,
         height: 400.0,
