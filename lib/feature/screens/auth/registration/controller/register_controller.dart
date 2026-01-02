@@ -25,6 +25,7 @@ class RegisterController extends GetxController implements Register_abstract,Pro
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController=TextEditingController();
   final TextEditingController confirmPassWord=TextEditingController();
+  //final TextEditingController roleController=TextEditingController();
 
   @override
   Future<void> signUp(String email, String password,String name) async {
@@ -34,7 +35,7 @@ class RegisterController extends GetxController implements Register_abstract,Pro
         password: password,);
       final Session? session = res.session;
       final User? user = res.user;
-      await supabase.from(AppString.user).insert({'userId':user!.id,'email':user.email,'name':name});
+      await supabase.from(AppString.user.capitalize!).insert({'userId':user!.id,'email':user.email,'name':name});
       if(session!=null)Get.to(()=>LoginView());
       }catch(e){
       print(e);

@@ -56,11 +56,16 @@ class Part2 extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                mainAxisExtent: 320,
+                mainAxisExtent: 300,
               ),
               itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
-                return const ProductCardWithTag(id: '',);
+                return  ProductCardWithTag(id: '',
+                  title: list[index].title,
+                  price: list[index].price.toString(),
+                  enrolled: list[index].enrolled.toString(),
+                  rating: list[index].rating,
+                  url: list[index].thumbnail, list: list,);
               },
             ),
           ],

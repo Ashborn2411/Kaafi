@@ -1,11 +1,12 @@
+
 import 'dataClassImport.dart';
 
 class DataClassFactory {
   static dynamic create(String type, Map<String, dynamic> json) {
     switch (type.toLowerCase()) {
-      case 'course':
+      case 'courses':
         return Course.fromJson(json);
-      case 'certificate':
+      case 'certificates':
         return Certificate.fromJson(json);
       case 'user':
         return User.fromJson(json);
@@ -13,22 +14,22 @@ class DataClassFactory {
       case 'student':
         return Student.fromJson(json);
 
-      case 'instructor':
+      case 'instructors':
         return Instructor.fromJson(json);
 
-      case 'enrollment':
+      case 'enrollements':
         return Enrollment.fromJson(json);
 
-      case 'section':
+      case 'sections':
         return Section.fromJson(json);
 
       case 'lesson':
         return Lesson.fromJson(json);
 
-      case 'quiz':
+      case 'quizzes':
         return Quiz.fromJson(json);
 
-      case 'question':
+      case 'questions':
         return Question.fromJson(json);
 
       case 'review':
@@ -37,15 +38,16 @@ class DataClassFactory {
       case 'forum':
         return Forum.fromJson(json);
 
-      case 'post':
+      case 'posts':
         return Post.fromJson(json);
 
-      case 'payment':
+      case 'payments':
         return Payment.fromJson(json);
 
-      case 'notification':
+      case 'notifications':
         return Notification.fromJson(json);
-
+      case 'category':
+        return Category.fromJson(json);
       case 'certificatelist':
       case 'certificate_list':
       // For CertificateList, we need to handle differently

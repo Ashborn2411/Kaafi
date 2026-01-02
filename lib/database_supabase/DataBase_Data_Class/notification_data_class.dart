@@ -4,17 +4,19 @@ class Notification {
   final String message;
   final bool isRead;
 
-  const Notification({
+  Notification({
     required this.notifId,
     required this.userId,
     required this.message,
     required this.isRead,
   });
 
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-    notifId: json['notifId'] as String,
-    userId: json['userId'] as String,
-    message: json['message'] as String,
-    isRead: json['isRead'] as bool,
-  );
+  factory Notification.fromJson(Map<String, dynamic> json) {
+    return Notification(
+      notifId: json['notifId'],
+      userId: json['userId'],
+      message: json['message'],
+      isRead: json['isRead'],
+    );
+  }
 }

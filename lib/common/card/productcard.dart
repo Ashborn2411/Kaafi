@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import '../../feature/screens/shop/productdetail/productdetailsscreen.dart';
 import 'widget/productavailabilty.dart';
 import 'widget/productprice.dart';
@@ -24,7 +25,7 @@ class ProductCard extends StatelessWidget {
     this.reduced = false,
     this.isverified = true,
     this.applyrating = false,
-    required this.id,
+    required this.id, required this.list,
   });
   final String title;
   final String id;
@@ -38,13 +39,13 @@ class ProductCard extends StatelessWidget {
   final bool isverified;
   final bool isSemibold;
   final bool applyrating;
-
+  final List<Course>list;
   @override
   Widget build(BuildContext context) {
     final h=MediaQuery.heightOf(context);
     final w=MediaQuery.widthOf(context);
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetails(id: id,)),
+      onTap: () => Get.to(() => ProductDetails(id: id, list:list,)),
       child: Container(
         width:w*0.6,
         decoration: BoxDecoration(
@@ -56,15 +57,15 @@ class ProductCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             (isnetworkimg)
-                ? Container(height:100,width:80,child: Image(image: NetworkImage(imgurl)),)
+                ? Image(image: NetworkImage(imgurl),fit: BoxFit.cover,height: 120,width: 200,)
                 :Container(
               margin: EdgeInsets.all(6),
               decoration:BoxDecoration(color: Colors.grey.shade400,borderRadius: BorderRadius.all(Radius.circular(12))) ,
               height: 100,width: double.infinity,child:  Image(
               image: AssetImage(imgurl),
-              height: 80,
-              width: 80,
-              fit: BoxFit.contain,
+              height: 120,
+              width: 120,
+              fit: BoxFit.fill,
             ),),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),

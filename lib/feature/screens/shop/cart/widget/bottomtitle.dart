@@ -1,12 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../common/button/customelevatedbutton.dart';
 
 class BottomTitle extends StatelessWidget {
-  const BottomTitle({super.key});
-
+  const BottomTitle({super.key, required this.value});
+  final double value;
   @override
   Widget build(BuildContext context) {
+
     return Material(
       elevation: 20.0,
       shadowColor: Colors.black, // Vx.black replacement
@@ -51,7 +54,7 @@ class BottomTitle extends StatelessWidget {
                     ),
                   ), // .text.size(16).semiBold.make() replacement
                   Text(
-                    "\$0",
+                    "\$$value",
                     style: TextStyle(
                       fontWeight: FontWeight.w600, // semiBold equivalent
                       color: const Color(0xFFF57C00), // orange500 equivalent

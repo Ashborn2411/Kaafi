@@ -5,7 +5,7 @@ class Instructor {
   final String qualifications;
   final double rating;
 
-  const Instructor({
+  Instructor({
     required this.instructorId,
     required this.userId,
     required this.bio,
@@ -13,11 +13,13 @@ class Instructor {
     required this.rating,
   });
 
-  factory Instructor.fromJson(Map<String, dynamic> json) => Instructor(
-    instructorId: json['instructorId'] as String,
-    userId: json['userId'] as String,
-    bio: json['bio'] as String,
-    qualifications: json['qualifications'] as String,
-    rating: (json['rating'] as num).toDouble(),
-  );
+  factory Instructor.fromJson(Map<String, dynamic> json) {
+    return Instructor(
+      instructorId: json['instructorId'],
+      userId: json['userId'],
+      bio: json['bio'],
+      qualifications: json['qualifications'],
+      rating: json['rating'] is int ? (json['rating'] as int).toDouble() : json['rating'],
+    );
+  }
 }

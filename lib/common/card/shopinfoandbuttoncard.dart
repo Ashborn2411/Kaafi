@@ -8,8 +8,9 @@ import 'widget/ratingwithtotalrated.dart';
 import 'widget/shopinfo.dart';
 
 class ShopNameAddressPriceButtons extends StatelessWidget {
+  const ShopNameAddressPriceButtons({super.key, required this.instructorName, required this.onPressed});
+  final VoidCallback onPressed;
   final String instructorName;
-  const ShopNameAddressPriceButtons({super.key, required this.instructorName});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class ShopNameAddressPriceButtons extends StatelessWidget {
                     child: CustomElevatedButton(
                       title: "Add to Cart",
                       textcolor: Colors.black, // Vx.black replacement
-                      onPressed: () {},
+                      onPressed: onPressed,
                       backgroundColor: const Color(
                         0xFFEEEEEE,
                       ), // Vx.gray200 replacement

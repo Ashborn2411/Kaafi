@@ -1,6 +1,7 @@
 import 'package:firstapp/Utils/AppString.dart';
 import 'package:firstapp/database_supabase/DataBase_Service/CenterDataBase/MainData_Class.dart';
 import 'package:firstapp/database_supabase/dataFetch_abstraction.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -18,20 +19,23 @@ abstract class MainDatabase{
 
 class DatabaseService implements MainDatabase{
   static final DatabaseService instance = DatabaseService._internal();
-
   Rx<CompleteDatabase> database=CompleteDatabase.emptydata.obs;
   bool _isinit=false;
   DatabaseService._internal();
-
+  CompleteDatabase parseCompleteDatabase(dynamic json) {
+    return CompleteDatabase.fromJson(json);
+  }
   @override
   Future<CompleteDatabase> fetchData() async {
     final supabase = Supabase.instance.client;
     try {
       final response = await supabase.rpc('get_all_data');
-      database.value=CompleteDatabase.fromJson(response);
+      final value=compute(parseCompleteDatabase,response);
+      database.value=await value;
+
       return database.value;
     } catch (e) {
-      print('Error fetching certificates: $e');
+      print('Error fetching database: $e');
       return database.value;
     }
   }
@@ -41,6 +45,7 @@ class DatabaseService implements MainDatabase{
     // TODO: implement initialize
     if(_isinit==false){
      await fetchData();
+     print(database.value);
     }
   }
 
@@ -59,46 +64,46 @@ class DatabaseService implements MainDatabase{
   @override
   List supplyData(String s) {
     switch (s.trim()) {
-    case 'courses':
+    case AppString.course:
     return database.value.courses;
-    // case 'certificate':
-    // return database.value.certificates;
-    case 'user':
+    case AppString.certificate:
+    return database.value.certificates;
+    case AppString.user:
     return database.value.users;
-    case 'student':
+    case AppString.student:
     return database.value.students;
 
-    case 'instructor':
+    case AppString.instructor:
     return database.value.instructors;
 
-    case 'enrollment':
+    case AppString.enrollment:
     return database.value.enrollments;
 
-    case 'section':
+    case AppString.section:
     return database.value.sections;
 
-    case 'lesson':
+    case AppString.lesson:
     return database.value.lessons;
 
-    case 'quiz':
+    case AppString.quiz:
     return database.value.quizzes;
 
-    case 'question':
+    case AppString.question:
     return database.value.questions;
 
-    case 'review':
+    case AppString.review:
     return database.value.reviews;
 
-    case 'forum':
+    case AppString.forum:
     return database.value.forums;
 
-    case 'post':
+      case AppString.post:
     return database.value.posts;
 
-    case 'payment':
+    case AppString.payment:
     return database.value.payments;
 
-    case 'notification':
+    case AppString.notification:
     return database.value.notifications;
     default:
     throw Exception('Unknown type: ${s.trim()}');

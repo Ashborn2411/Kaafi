@@ -13,3 +13,4 @@ export'forum_data_class.dart';
 export'insturctor_data_class.dart';
 export 'lesson_data_class.dart';
 export 'notification_data_class.dart';
+export 'Catagory_Data_Class.dart';

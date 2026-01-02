@@ -1,17 +1,19 @@
-class CategoryDataClass {
+class Category {
   final String categoryId;
   final String name;
-  final String? parentCategoryId;
+  final String parentCategoryId;
 
-  const CategoryDataClass({
+  Category({
     required this.categoryId,
     required this.name,
-    this.parentCategoryId,
+    required this.parentCategoryId,
   });
 
-  factory CategoryDataClass.fromJson(Map<String, dynamic> json) => CategoryDataClass(
-    categoryId: json['categoryId'] as String,
-    name: json['name'] as String,
-    parentCategoryId: json['parentCategoryId'] as String?,
-  );
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
+      categoryId: json['categoryId'],
+      name: json['name'],
+      parentCategoryId: json['parentCategoryId'],
+    );
+  }
 }

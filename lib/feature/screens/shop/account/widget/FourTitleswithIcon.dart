@@ -3,48 +3,80 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../auth/forgetscreen/forgetpassword.dart';
+import '../accountController.dart';
 import 'IconListtile.dart';
 
-class FourTitlesWithIcons extends StatelessWidget {
-  const FourTitlesWithIcons({super.key});
+class AccountMenuItem {
+  final String title;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-      child: Column(
-        children: [
-          IconListTitle(
-            ontap: () {},
-            color: const Color(
-              0xFF4CAF50,
-            ).withOpacity(0.85), // Vx.green500 replacement
-          ),
-          const SizedBox(height: 10), // 10.heightBox replacement
-          IconListTitle(
-            title: "Wishlist",
-            icon: Icons.favorite_border_outlined,
-            ontap: () => Get.to(() => const Wishlist()),
-            color: const Color(0xFFF44336), // Vx.red500 replacement
-          ),
-          const SizedBox(height: 10), // 10.heightBox replacement
-          IconListTitle(
-            title: "Notification",
-            ontap: () {},
-            icon: Icons.notifications_outlined,
-            color: const Color(0xFFFFCA28), // Vx.amber400 replacement
-          ),
-          const SizedBox(height: 10), // 10.heightBox replacement
-          IconListTitle(
-            icon: Icons.lock_outline,
-            title: "Change Password",
-            ontap: () => Get.to(() => const ForgetPassword()),
-            color: const Color(0xFF2196F3), // Vx.blue500 replacement
-          ),
-        ],
-      ),
-    );
-  }
+  AccountMenuItem({
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
 }
 
 
+class Fourtitleswithicon extends StatelessWidget {
+  const Fourtitleswithicon({super.key, required this.controller});
+  final AccountController controller;
+
+  @override
+  Widget build(BuildContext context) {
+
+    // Define your menu items here
+    final List<AccountMenuItem> accountMenuItems = [
+      AccountMenuItem(
+        title: "Enrolled Courses",
+        icon: Icons.school,
+        color: const Color(0xFF4CAF50).withValues(alpha: 0.85),
+        onTap: () =>Get.to(()=>Wishlist(controller: controller, list: controller.enrolledlist,)),
+      ),
+      AccountMenuItem(
+        title: "Wishlist",
+        icon: Icons.favorite_border_outlined,
+        color: const Color(0xFFF44336),
+        onTap: () {
+          Get.to(() => Wishlist(controller: controller, list: controller.wishlist,));
+        },
+      ),
+      AccountMenuItem(
+        title: "Certificates",
+        icon: Icons.contact_page,
+        color: const Color(0xFFFFCA28),
+        onTap: () {
+          // TODO: Navigate to certificates page
+        },
+      ),
+      AccountMenuItem(
+        title: "Change Password",
+        icon: Icons.password,
+        color: const Color(0xFF2196F3),
+        onTap: () {
+          Get.to(() => const ForgetPassword());
+        },
+      ),
+    ];
+
+    return ListView.builder(
+          itemCount: accountMenuItems.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final item = accountMenuItems[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: IconListTitle(
+                title: item.title,
+                icon: item.icon,
+                color: item.color,
+                ontap: item.onTap,
+              ),
+            );
+          },
+    );
+  }
+}

@@ -1,3 +1,5 @@
+import 'package:firstapp/LocalStorage/smallStorage.dart';
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:firstapp/feature/screens/shop/home/Controller/homeController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,14 +19,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _homeScaffoldKey = GlobalKey<ScaffoldState>();
     final controller=Get.put(HomeController());
+    final AccountController accountController=AccountController();
+    SmallStorage smallStorage=SmallStorage.instance;
+
     return Scaffold(
       key: _homeScaffoldKey,
       bottomNavigationBar: const BottomNav(),
       appBar: homeAppBar(_homeScaffoldKey),
       drawer: MyDrawer(
-        userName: "Joy",
-        userEmail: "TanjimJOy7@gmail.com",
-        scaffoldKey:_homeScaffoldKey,
+        userName:controller.name.value,
+        userEmail:controller.email.value,
+
+        scaffoldKey:_homeScaffoldKey, controller: accountController,
       ),
       body: CustomScrollView(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -48,12 +54,12 @@ class HomeScreen extends StatelessWidget {
                 case 1:
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Part1(list: controller.course_list,),
+                    child: Part1(list: controller.list,),
                   ); // .paddingSymmetric() replacement
                 case 2:
                   return const SizedBox(height: 10); // 10.heightBox replacement
                 case 3:
-                  return  Part2(list:controller.course_list,);
+                  return  Part2(list:controller.list,);
                 default:
                   return Container();
               }

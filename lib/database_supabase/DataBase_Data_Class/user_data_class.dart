@@ -1,24 +1,39 @@
-
 class User {
   final String userId;
   final String name;
   final String email;
-  final String passwordHash;
-  final String role;
+  final String? role;
+  final List<String>wishlist;
+  final List<String>enrolledlist;
+  final List<String>cartlist;
 
-  const User({
-    required this.userId,
+  User(
+      {
+       required this.cartlist,
+       required this.wishlist,
+       required this.enrolledlist,
+        required this.userId,
     required this.name,
     required this.email,
-    required this.passwordHash,
-    required this.role,
+    this.role,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-    userId: json['userId'] as String,
-    name: json['name'] as String,
-    email: json['email'] as String,
-    passwordHash: json['passwordHash'] as String,
-    role: json['role'] as String,
-  );
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      userId: json['userId'] ?? '',
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      role: json['role'],
+      wishlist: (json['wish_list'] as List<dynamic>? ?? [])
+          .map((e) => e.toString())
+          .toList(),
+      enrolledlist: (json['enrolled_courses'] as List<dynamic>? ?? [])
+          .map((e) => e.toString())
+          .toList(),
+      cartlist: (json['cart'] as List<dynamic>? ?? [])
+          .map((e) => e.toString())
+          .toList(),
+    );
+  }
+
 }

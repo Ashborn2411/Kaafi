@@ -2,19 +2,25 @@ import 'package:firstapp/database_supabase/DataBase_Data_Class/Catagory_Data_Cla
 import 'package:firstapp/database_supabase/DataBase_Data_Class/DataClassFactory.dart';
 import 'package:firstapp/database_supabase/DataBase_Service/CenterDataBase/Database_service.dart';
 import 'package:firstapp/database_supabase/DataBase_Service/CenterDataBase/MainData_Class.dart';
+import 'package:firstapp/database_supabase/DataBase_Service/computer_adapter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class FetchData{
 
   Future<List<dynamic>?> fetchData(String tableName) async {
     final supabase = Supabase.instance.client;
+    final Computer_Adapter computer_adapter=Computer_Adapter();
     try {
       final response = await supabase
           .from(tableName)
           .select('*');
-
-      return response.map((value)=>DataClassFactory.create(tableName,value)).toList();
+      final value=compute(computer_adapter.isolateMapFactory,{
+        'tableName':tableName,
+        'data':response
+      });
+      return value;
     } catch (e) {
       print('Error fetching lessons: $e');
       return null;

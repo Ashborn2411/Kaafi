@@ -1,16 +1,20 @@
 import 'package:firstapp/Utils/video_module/video_module.dart';
+import 'package:firstapp/ai_integrate.dart';
 import 'package:firstapp/feature/screens/shop/productdetail/ShopController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../Utils/video_module/video_widget.dart';
 import '../../../../common/card/banner/bannercarousel.dart';
 import '../../../../common/card/productcardwithtag.dart';
 import '../../../../common/card/shopinfoandbuttoncard.dart'
     show ShopNameAddressPriceButtons;
 import '../../../../constant/imageconstant.dart';
 import '../../../../constant/stringconstant.dart';
+import '../../../../database_supabase/DataBase_Data_Class/courses_data_class.dart';
 import '../../../../navigation.dart';
 import '../home/widgets/appbar/widget/searchbar.dart';
 import 'widgets/titleandcollection.dart';
@@ -18,34 +22,29 @@ import 'widgets/variants.dart';
 
 class ProductDetails extends StatelessWidget {
   final String id;
-  const ProductDetails({super.key, required this.id});
-
+  const ProductDetails({super.key, required this.id, required this.list});
+  final List<Course>list;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final ProductController productController=ProductController(id: id);
     final controller=Get.put(VideoController(url: productController.data.url));
-    print(productController.data.instructorName);
+
     return Scaffold(
       bottomNavigationBar: const BottomNav(),
+      floatingActionButton: FloatingActionButton(child: Icon(Iconsax.message),onPressed: ()=>Get.to(()=>Ai_Chat())),
       appBar: AppBar(
         surfaceTintColor: Colors.white, // Vx.white replacement
         title: const RoundedSearchBar(title: "Search Products"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: ()=>productController.like(),
             icon: const Icon(
               Icons.favorite_border_outlined,
               color: Color.fromARGB(255, 158, 4, 4), // Vx.black replacement
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.share,
-              color: Colors.black, // Vx.black replacement
-            ),
-          ),
+
         ],
       ),
       body: SingleChildScrollView(
@@ -56,11 +55,9 @@ class ProductDetails extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child:AspectRatio(
-                aspectRatio: controller.videoPlayerController.value.aspectRatio,
-                child: VideoPlayer(controller.videoPlayerController),
-              ),
+              child:VideoModule(controller: controller),
             ), // .paddingSymmetric() replacement
+
             const SizedBox(height: 10), // 10.heightBox replacement
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -108,7 +105,9 @@ class ProductDetails extends StatelessWidget {
             const SizedBox(height: 8), // 8.heightBox replacement
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: ShopNameAddressPriceButtons( instructorName:productController.data.instructorName,),
+              child: ShopNameAddressPriceButtons(
+                instructorName:productController.data.instructorName,
+                onPressed:()=>productController.addToCart(),),
             ), // .paddingSymmetric() replacement
             const SizedBox(height: 16), // 16.heightBox replacement
             Padding(
@@ -149,7 +148,8 @@ class ProductDetails extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          productController.data.status.keys.first,
+                          //productController.data.status.keys.first,
+                          '',
                           style: TextStyle(
                             fontSize: 16,
                             color: const Color(
@@ -160,7 +160,8 @@ class ProductDetails extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          productController.data.status.keys.last,
+                          //productController.data.status.keys.last,'
+                          '',
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ), // .text.size(16).black.make() replacement
                       ),
@@ -195,7 +196,13 @@ class ProductDetails extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return  ProductCardWithTag(id: id,);
+
+                  return  ProductCardWithTag(id: id,
+                    title:list[index].title,
+                    price: list[index].price.toString(),
+                    enrolled: list[index].enrolled.toString(),
+                    rating: list[index].rating,
+                    url: list[index].thumbnail, list: list,);
                 },
               ),
             ), // .box.gray100.make() replacement
@@ -205,3 +212,5 @@ class ProductDetails extends StatelessWidget {
     );
   }
 }
+
+

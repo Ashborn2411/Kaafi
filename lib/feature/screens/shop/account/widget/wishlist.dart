@@ -1,106 +1,99 @@
+import 'package:firstapp/database_supabase/DataBase_Data_Class/courses_data_class.dart';
+import 'package:firstapp/feature/screens/shop/account/accountController.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constant/imageconstant.dart';
 
 class Wishlist extends StatelessWidget {
-  const Wishlist({super.key});
+  const Wishlist({super.key, required this.controller, required this.list});
+  final AccountController controller;
+  final List list;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: Text("Wishlist")),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(
           child: ListView.builder(
-            itemCount: 1,
+            itemCount: list.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8), // rounded equivalent
-                  border: Border.all(width: 0.1),
-                ),
-                child: Row(
-                  children: [
-                    const Image(
-                      image: AssetImage(ImageCons.watch1),
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.contain,
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 80,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "Title",
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Price",
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Flexible(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.timer_sharp,
-                                        size: 12,
-                                        color: Color(
-                                          0xFF9E9E9E,
-                                        ), // Vx.gray500 replacement
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ), // 4.widthBox replacement
-                                      Text(
-                                        "Just now",
-                                        style: TextStyle(
-                                          color: const Color(
-                                            0xFF9E9E9E,
-                                          ), // Vx.gray500 replacement
-                                          fontSize: 8,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      size: 20,
-                                      color: Color(
-                                        0xFF757575,
-                                      ), // Vx.gray600 replacement
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              Course course=controller.getCartCourses(list[index]);
+              return WishListComponent(title: course.title,
+                price:course.price.toString(),
+                url: course.thumbnail,);
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class WishListComponent extends StatelessWidget {
+  final String title;
+  final String price;
+  final String url;
+
+  const WishListComponent({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 0.2)
+        ,
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6), // Rounded corners
+            child: Image.network(
+              url,
+              width: 120,
+              height: 70,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
+            ),
+          ),
+          SizedBox(width: 10,),
+          Expanded(
+            child: SizedBox(
+              width: double.infinity,
+              height: 80,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style:  TextStyle(fontSize: 18,fontWeight:FontWeight.w400),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                     "Price $price",
+                      style: const TextStyle(fontWeight: FontWeight.w700,fontSize: 16,color:Colors.red),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -7,7 +7,7 @@ class Review {
   final String comment;
   final DateTime date;
 
-  const Review({
+  Review({
     required this.reviewId,
     required this.courseId,
     required this.studentId,
@@ -16,12 +16,14 @@ class Review {
     required this.date,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) => Review(
-    reviewId: json['reviewId'] as String,
-    courseId: json['courseId'] as String,
-    studentId: json['studentId'] as String,
-    rating: json['rating'] as int,
-    comment: json['comment'] as String,
-    date: DateTime.parse(json['date'] as String),
-  );
+  factory Review.fromJson(Map<String, dynamic> json) {
+    return Review(
+      reviewId: json['reviewId'],
+      courseId: json['courseId'],
+      studentId: json['studentId'],
+      rating: json['rating'],
+      comment: json['comment'],
+      date: DateTime.parse(json['date']),
+    );
+  }
 }

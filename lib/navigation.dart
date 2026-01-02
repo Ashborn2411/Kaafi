@@ -1,3 +1,6 @@
+import 'package:firstapp/Utils/AppString.dart';
+import 'package:firstapp/database_supabase/DataBase_Data_Class/courses_data_class.dart';
+import 'package:firstapp/database_supabase/DataBase_Service/CenterDataBase/Database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -10,10 +13,10 @@ import 'feature/screens/shop/home/homescreen.dart';
 class NavigationController extends GetxController {
   static NavigationController get instance => Get.find();
   final Rx<int> selectedIndex = 0.obs;
-
-  final screens = [
+  DatabaseService db=DatabaseService.instance;
+  late final screens = [
     const HomeScreen(),
-    const CampaignScreen(id: '',),
+     CampaignScreen(id: '', list:db.supplyData(AppString.course)as List<Course>,),
     const CartSrceen(),
     const AccountScreen(),
   ];
@@ -38,7 +41,7 @@ class BottomNav extends StatelessWidget {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 4,
               offset: const Offset(0, -2),
             ),

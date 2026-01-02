@@ -4,17 +4,19 @@ class Section {
   final String title;
   final int order;
 
-  const Section({
+  Section({
     required this.sectionId,
     required this.courseId,
     required this.title,
     required this.order,
   });
 
-  factory Section.fromJson(Map<String, dynamic> json) => Section(
-    sectionId: json['sectionId'] as String,
-    courseId: json['courseId'] as String,
-    title: json['title'] as String,
-    order: json['order'] as int,
-  );
+  factory Section.fromJson(Map<String, dynamic> json) {
+    return Section(
+      sectionId: json['sectionId'],
+      courseId: json['courseId'],
+      title: json['title'],
+      order: json['order'],
+    );
+  }
 }
